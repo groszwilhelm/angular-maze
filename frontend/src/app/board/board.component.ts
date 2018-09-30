@@ -101,7 +101,7 @@ export class BoardComponent {
     heroPositionIsUpadted = this.updateBoardForHeroPosition(updatedRowIndex, updatedColumnIndex);
 
     if (heroPositionIsUpadted) {
-      this.updateBoard(curentHeroPosition.rowIndex, curentHeroPosition.columnIndex, '-');
+        this.updateBoard(curentHeroPosition.rowIndex, curentHeroPosition.columnIndex, '-');
     }
   }
 
@@ -110,11 +110,19 @@ export class BoardComponent {
       return false;
     }
     /**
-     * @TODO: Get other teleporter and update board based on that
+     * @TODO: logic will work only if the teleporter has wall above or below, needs to be extended
      */
     if (this.isTeleporter(rowIndex, columnIndex)) {
-      this.updateBoard(this._teleporters[0].position.rowIndex, this._teleporters[0].position.columnIndex, 'h');
-      this.updateViewRange(this._teleporters[0].position.rowIndex, this._teleporters[0].position.columnIndex);
+      const teleportTo = this._teleporters
+        .filter(teleporter => teleporter.position.rowIndex !== rowIndex && teleporter.position.columnIndex !== columnIndex)[0].position;
+
+      if (this.hasWall(teleportTo.rowIndex + 1, teleportTo.columnIndex)) {
+        this.updateBoard(teleportTo.rowIndex - 1, teleportTo.columnIndex, 'h');
+      } else {
+        this.updateBoard(teleportTo.rowIndex + 1, teleportTo.columnIndex, 'h');
+      }
+
+      this.updateViewRange(this._teleporters[0].position.rowIndex + 1, this._teleporters[0].position.columnIndex);
       return true;
     }
 

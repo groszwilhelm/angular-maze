@@ -10,6 +10,13 @@
   background-size: cover;
 }
 
+.teleporter {
+  background-image: url('./assets/images/door.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .hidden {
   background-color: grey;
+  background-image: none;
 }

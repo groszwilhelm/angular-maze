@@ -1,10 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'teleporter',
-  template: `
-    T
-  `,
+  template: ``,
   styles: [`
     :host {
       display: block;
@@ -13,5 +11,6 @@ import { Component, Input } from '@angular/core';
   `]
 })
 export class TeleporterComponent {
+  @HostBinding('class.teleporter') teleporterClass = true;
   @Input() position: { rowIndex: number, columnIndex: number };
 }
